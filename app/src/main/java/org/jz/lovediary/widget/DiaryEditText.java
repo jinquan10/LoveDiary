@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.jz.lovediary.Util.Utils;
+import org.jz.lovediary.application.Globals;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,7 +53,7 @@ public final class DiaryEditText extends EditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (Math.abs(charCount - count) >= 10) {
-                    // store the text into db
+                    
                 }
 
                 charCount = count;
