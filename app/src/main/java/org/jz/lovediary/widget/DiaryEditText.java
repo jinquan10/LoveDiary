@@ -39,7 +39,7 @@ public final class DiaryEditText extends EditText {
     }
 
     protected void init() {
-        setHint(sdf.format(new Date()).toString() + "\n");
+        setHint(sdf.format(new Date()).toString());
 
         addTextChangedListener(new TextWatcher() {
             protected int charCount = 0;
