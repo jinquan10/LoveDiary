@@ -42,7 +42,7 @@ public final class DiaryEditText extends EditText {
         if (entries.size() == 1) {
             entry = entries.get(0);
             if (Utils.isFromToday(entry.lastUpdated)) {
-
+                setText(entry.entry);
             } else {
                 entry = new DiaryEntry();
             }
