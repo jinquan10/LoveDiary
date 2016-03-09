@@ -13,12 +13,12 @@ public class UtilsTest {
     }
 
     @Test
-    public void testIsFrom_whenOneDayPrior_WillReturnFalse() {
+    public void testIsFromToday_whenOneDayPrior_WillReturnFalse() {
         Assert.assertFalse(Utils.isFromToday(System.currentTimeMillis() - Utils.MILLIS_PER_DAY));
     }
 
     @Test
-    public void testIsFrom_whenOneDayAfter_WillReturnFalse() {
+    public void testIsFromToday_whenOneDayAfter_WillReturnFalse() {
         Assert.assertFalse(Utils.isFromToday(System.currentTimeMillis() + Utils.MILLIS_PER_DAY));
     }
 }
