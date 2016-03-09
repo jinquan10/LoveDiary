@@ -1,22 +1,16 @@
 package org.jz.lovediary.widget;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import org.jz.lovediary.Util.Utils;
-import org.jz.lovediary.application.Globals;
+import org.jz.lovediary.util.Utils;
+import org.jz.lovediary.storage.entity.DiaryEntry;
+import org.jz.lovediary.storage.rules.SimpleEditTextPersistenceRule;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by JZ on 3/5/2016.
@@ -42,37 +36,22 @@ public final class DiaryEditText extends EditText {
     protected void init() {
         setHint(sdf.format(new Date()).toString());
 
-        addTextChangedListener(new TextWatcher() {
-            protected int charCount = 0;
+        List<DiaryEntry> entries = DiaryEntry.find(DiaryEntry.class, "SELECT * FROM DiaryEntry ORDER BY created DESC LIMIT 1;");
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        DiaryEntry entry = null;
+        if (entries.size() == 1) {
+            entry = entries.get(0);
+            if (Utils.isFromToday(entry.lastUpdated)) {
 
+            } else {
+                entry = new DiaryEntry();
             }
+        } else if (entries.size() == 0) { // no entries yet
+            entry = new DiaryEntry();
+        } else if (entries.size() != 1) {
+            throw new RuntimeException("Expected one DiaryEntry");
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (Math.abs(charCount - count) >= 10) {
-                    
-                }
-
-                charCount = count;
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Utils.logD("keyCode: " + keyCode);
-                Utils.logD("event: " + event);
-
-                return false;
-            }
-        });
+        addTextChangedListener(new SimpleEditTextPersistenceRule(entry));
     }
 }

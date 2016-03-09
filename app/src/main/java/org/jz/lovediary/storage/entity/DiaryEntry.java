@@ -1,11 +1,12 @@
 package org.jz.lovediary.storage.entity;
 
-import com.orm.SugarRecord;
+import java.util.Calendar;
 
 /**
- * Created by JZ on 3/6/2016.
+ * Created by JZ on 3/8/2016.
  */
-public class DiaryEntry extends SugarRecord {
-    protected long time;
-    protected String entry;
+public class DiaryEntry extends EditTextEntry {
+    public DiaryEntry(){
+        created = Calendar.getInstance().getTimeInMillis();
+    }
 }
