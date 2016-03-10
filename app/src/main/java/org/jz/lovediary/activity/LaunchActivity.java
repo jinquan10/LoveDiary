@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import org.jz.lovediary.R;
-import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.fragment.DiaryEntryFragment;
 import org.jz.lovediary.fragment.SplashScreenFragment;
 

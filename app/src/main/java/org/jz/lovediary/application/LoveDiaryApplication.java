@@ -1,11 +1,11 @@
 package org.jz.lovediary.application;
 
-import android.app.Application;
+import com.orm.SugarApp;
 
 /**
  * Created by JZ on 3/6/2016.
  */
-public class LoveDiaryApplication extends Application {
+public class LoveDiaryApplication extends SugarApp {
     @Override
     public void onCreate() {
         super.onCreate();

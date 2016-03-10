@@ -10,5 +10,6 @@ public class EditTextEntry extends SugarRecord {
     public long lastUpdated;
     public String entry;
 
-    public EditTextEntry() {}
+    public EditTextEntry() {
+    }
 }

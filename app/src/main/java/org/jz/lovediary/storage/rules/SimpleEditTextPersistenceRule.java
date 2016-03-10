@@ -29,7 +29,7 @@ public class SimpleEditTextPersistenceRule implements TextWatcher {
             currCount = count;
             editTextEntry.lastUpdated = new Date().getTime();
             editTextEntry.entry = s.toString();
-            EditTextEntry.save(editTextEntry);
+            editTextEntry.save();
         }
     }
 
