@@ -27,9 +27,9 @@ public class SimpleEditTextPersistenceRule implements TextWatcher {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (count - currCount > 10) {
             currCount = count;
-            editTextEntry.lastUpdated = new Date().getTime();
-            editTextEntry.entry = s.toString();
-            editTextEntry.save();
+            editTextEntry.setLastUpdated(new Date().getTime());
+            editTextEntry.setEntry(s.toString());
+            // - save it
         }
     }
 

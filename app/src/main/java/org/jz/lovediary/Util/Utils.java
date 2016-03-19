@@ -11,7 +11,7 @@ import java.util.TimeZone;
 public final class Utils {
     public static final String APP_TAG = "jzjz";
     public static final long MILLIS_PER_DAY = 86400000;
-    public static final SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("MMM d, y HH:mm:ss z");
+    public static final SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("MMM d, y");
 
     public static void logD(String str) {
         Log.d(APP_TAG, str);
