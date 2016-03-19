@@ -1,6 +1,7 @@
 package org.jz.lovediary.factory;
 
 import org.jz.lovediary.application.Globals;
+import org.jz.lovediary.storage.SqlStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,16 @@ public class ApplicationInitializor implements Initializor
     private Runnable onFinishedRunnable;
     private static List<Factory> factories;
 
-    @Override
-    public void initialize()
+    static
     {
         factories = new ArrayList<>();
         factories.add(new ThreadSleepFactory());
+        factories.add(new DAOFactory());
+    }
 
+    @Override
+    public void initialize()
+    {
         onBefore();
 
         new Thread(new Runnable()
@@ -46,6 +51,15 @@ public class ApplicationInitializor implements Initializor
     }
 
     @Override
+    public void destory()
+    {
+        for (Factory factory : factories)
+        {
+            factory.destory();
+        }
+    }
+
+    @Override
     public void setOnBeforeListener(Runnable runnable)
     {
         this.onBeforeRunnable = runnable;
@@ -67,6 +81,21 @@ public class ApplicationInitializor implements Initializor
         this.onFinishedRunnable.run();
     }
 
+    private static class DAOFactory implements Factory
+    {
+        @Override
+        public void create()
+        {
+            Globals.sqlStorage = new SqlStorage();
+        }
+
+        @Override
+        public void destory()
+        {
+            Globals.sqlStorage.close();
+        }
+    }
+
     private static class ThreadSleepFactory implements Factory
     {
 
@@ -81,6 +110,12 @@ public class ApplicationInitializor implements Initializor
             {
                 e.printStackTrace();
             }
+        }
+
+        @Override
+        public void destory()
+        {
+
         }
     }
 }

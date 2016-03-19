@@ -10,4 +10,6 @@ public interface Initializor
     void setOnBeforeListener(Runnable runnable);
 
     void setOnAfterListener(Runnable runnable);
+
+    void destory();
 }

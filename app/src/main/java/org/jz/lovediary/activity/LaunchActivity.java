@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import org.jz.lovediary.R;
+import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.factory.ApplicationInitializor;
 import org.jz.lovediary.factory.Initializor;
 import org.jz.lovediary.fragment.DiaryEntryFragment;
@@ -22,8 +23,8 @@ public class LaunchActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container);
 
-        Initializor appInitializor = new ApplicationInitializor();
-        appInitializor.setOnBeforeListener(new Runnable()
+        Globals.appInitializor = new ApplicationInitializor();
+        Globals.appInitializor.setOnBeforeListener(new Runnable()
         {
             @Override
             public void run()
@@ -34,7 +35,7 @@ public class LaunchActivity extends Activity
             }
         });
 
-        appInitializor.setOnAfterListener(new Runnable()
+        Globals.appInitializor.setOnAfterListener(new Runnable()
         {
             @Override
             public void run()
@@ -46,7 +47,7 @@ public class LaunchActivity extends Activity
             }
         });
 
-        appInitializor.initialize();
+        Globals.appInitializor.initialize();
     }
 
     @Override

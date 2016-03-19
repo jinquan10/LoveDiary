@@ -6,4 +6,5 @@ package org.jz.lovediary.factory;
 public interface Factory
 {
     void create();
+    void destory();
 }
