@@ -12,8 +12,10 @@ import android.widget.RelativeLayout;
 import org.jz.lovediary.R;
 import org.jz.lovediary.storage.entity.DiaryEntry;
 import org.jz.lovediary.storage.rules.SimpleEditTextPersistenceRule;
+import org.jz.lovediary.util.Utils;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -33,21 +35,28 @@ public class DiaryEntryFragment extends Fragment
         editText = (EditText) layoutContainer.findViewById(R.id.editText);
         editText.setHint(org.jz.lovediary.util.Utils.DEFAULT_DATE_FORMATTER.format(new Date()).toString());
 
-        //        List<DiaryEntry> entries = new;
-        //
+        List<DiaryEntry> entries = DiaryEntry.query(DiaryEntry.buildQuery().orderBy("created", false).limit(1l));
         DiaryEntry entry = null;
-        //        if (entries.size() == 1) {
-        //            entry = entries.get(0);
-        //            if (Utils.isFromToday(entry.getLastUpdated())) {
-        //                editText.setText(entry.getEntry());
-        //            } else {
-        //                entry = new DiaryEntry();
-        //            }
-        //        } else if (entries.size() == 0) { // no entries yet
-        //            entry = new DiaryEntry();
-        //        } else if (entries.size() != 1) {
-        //            throw new RuntimeException("Expected one DiaryEntry");
-        //        }
+        if (entries.size() == 1)
+        {
+            entry = entries.get(0);
+            if (Utils.isFromToday(entry.getLastUpdated()))
+            {
+                editText.setText(entry.getEntry());
+            }
+            else
+            {
+                entry = new DiaryEntry();
+            }
+        }
+        else if (entries.size() == 0)
+        { // no entries yet
+            entry = new DiaryEntry();
+        }
+        else if (entries.size() != 1)
+        {
+            throw new RuntimeException("Expected one DiaryEntry");
+        }
 
         editText.addTextChangedListener(new SimpleEditTextPersistenceRule(entry));
 

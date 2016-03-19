@@ -3,6 +3,7 @@ package org.jz.lovediary.storage.rules;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import org.jz.lovediary.storage.entity.DiaryEntry;
 import org.jz.lovediary.storage.entity.EditTextEntry;
 
 import java.util.Date;
@@ -29,7 +30,8 @@ public class SimpleEditTextPersistenceRule implements TextWatcher {
             currCount = count;
             editTextEntry.setLastUpdated(new Date().getTime());
             editTextEntry.setEntry(s.toString());
-            // - save it
+
+            DiaryEntry.
         }
     }
 

@@ -1,5 +1,7 @@
 package org.jz.lovediary.factory;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+
 import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.storage.SqlStorage;
 
@@ -19,7 +21,6 @@ public class ApplicationInitializor implements Initializor
     static
     {
         factories = new ArrayList<>();
-        factories.add(new ThreadSleepFactory());
         factories.add(new DAOFactory());
     }
 
@@ -86,36 +87,13 @@ public class ApplicationInitializor implements Initializor
         @Override
         public void create()
         {
-            Globals.sqlStorage = new SqlStorage();
+            Globals.sqlStorage = OpenHelperManager.getHelper(Globals.context, SqlStorage.class);
         }
 
         @Override
         public void destory()
         {
             Globals.sqlStorage.close();
-        }
-    }
-
-    private static class ThreadSleepFactory implements Factory
-    {
-
-        @Override
-        public void create()
-        {
-            try
-            {
-                Thread.sleep(2000l);
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void destory()
-        {
-
         }
     }
 }
