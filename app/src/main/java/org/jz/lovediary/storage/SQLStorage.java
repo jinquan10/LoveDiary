@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by john.zhuang on 3/18/16.
  */
-public class SqlStorage extends OrmLiteSqliteOpenHelper
+public class SQLStorage extends OrmLiteSqliteOpenHelper
 {
     private static List<Class<?>> tables = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class SqlStorage extends OrmLiteSqliteOpenHelper
         tables.add(DiaryEntry.class);
     }
 
-    public SqlStorage(Context context)
+    public SQLStorage(Context context)
     {
         super(context, "lovediary.db", null, 4);
     }

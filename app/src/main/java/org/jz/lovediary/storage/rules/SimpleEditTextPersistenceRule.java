@@ -31,7 +31,6 @@ public class SimpleEditTextPersistenceRule implements TextWatcher {
             editTextEntry.setLastUpdated(new Date().getTime());
             editTextEntry.setEntry(s.toString());
 
-            DiaryEntry.
         }
     }
 
