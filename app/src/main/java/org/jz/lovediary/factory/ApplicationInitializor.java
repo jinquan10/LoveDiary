@@ -4,6 +4,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.storage.SQLStorage;
+import org.jz.lovediary.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class ApplicationInitializor implements Initializor {
     private Runnable onBeforeRunnable;
     private Runnable onFinishedRunnable;
     private static List<Factory> factories;
+    private Thread initializeThread;
 
     static {
         factories = new ArrayList<>();
@@ -26,7 +28,7 @@ public class ApplicationInitializor implements Initializor {
     public void initialize() {
         onBefore();
 
-        new Thread(new Runnable() {
+        initializeThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (Factory factory : factories) {
@@ -40,13 +42,22 @@ public class ApplicationInitializor implements Initializor {
                     }
                 });
             }
-        }).start();
+        });
+
+        initializeThread.start();
     }
 
     @Override
     public void destory() {
         for (Factory factory : factories) {
             factory.destory();
+        }
+
+        try {
+            initializeThread.interrupt();
+            initializeThread.join();
+        } catch (InterruptedException e) {
+            Utils.logD("Shutting down initialization thread...");
         }
     }
 

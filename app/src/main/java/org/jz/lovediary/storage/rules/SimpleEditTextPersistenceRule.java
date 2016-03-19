@@ -3,21 +3,19 @@ package org.jz.lovediary.storage.rules;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import org.jz.lovediary.storage.entity.DiaryEntry;
+import com.j256.ormlite.dao.Dao;
+
+import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.storage.entity.EditTextEntry;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
  * Created by JZ on 3/8/2016.
  */
-public class SimpleEditTextPersistenceRule implements TextWatcher {
-    protected int currCount = 0;
-    protected EditTextEntry editTextEntry;
-
-    public SimpleEditTextPersistenceRule(EditTextEntry editTextEntry) {
-        this.editTextEntry = editTextEntry;
-    }
+public abstract class SimpleEditTextPersistenceRule implements TextWatcher, EditTextEntry {
+    private int currCount = 0;
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -28,9 +26,17 @@ public class SimpleEditTextPersistenceRule implements TextWatcher {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (count - currCount > 10) {
             currCount = count;
-            editTextEntry.setLastUpdated(new Date().getTime());
-            editTextEntry.setEntry(s.toString());
+            setLastUpdated(new Date().getTime());
+            setEntry(s.toString());
 
+            try {
+                Dao.CreateOrUpdateStatus createOrUpdateStatus = Globals.getDao(this.getClass()).createOrUpdate(this);
+                if (!createOrUpdateStatus.isUpdated() && !createOrUpdateStatus.isCreated()) {
+                    throw new RuntimeException("Could not create or update");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Could not create or update", e);
+            }
         }
     }
 
