@@ -88,6 +88,7 @@ public class ApplicationInitializor implements Initializor {
         @Override
         public void destory() {
             Globals.sqlStorage.close();
+            Utils.logD("DAOFactory destroyed");
         }
     }
 }

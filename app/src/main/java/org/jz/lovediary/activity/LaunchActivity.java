@@ -61,4 +61,10 @@ public class LaunchActivity extends Activity
     {
         super.onStop();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Globals.appInitializor.destory();
+    }
 }

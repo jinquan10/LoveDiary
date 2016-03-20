@@ -17,4 +17,6 @@ public class LoveDiaryApplication extends Application
         Globals.context = getApplicationContext();
         Globals.handler = new Handler(getMainLooper());
     }
+
+
 }

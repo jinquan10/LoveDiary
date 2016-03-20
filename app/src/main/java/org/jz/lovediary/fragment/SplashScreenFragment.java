@@ -35,8 +35,6 @@ public class SplashScreenFragment extends Fragment
     {
         super.onStart();
 
-        Utils.logD("onStart");
-
         layoutContainer.animate()
                        .alpha(1f)
                        .setDuration(2000l)
