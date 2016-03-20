@@ -1,14 +1,13 @@
 package org.jz.lovediary.storage.entity;
 
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import org.jz.lovediary.application.Globals;
-import org.jz.lovediary.storage.rules.SimpleEditTextPersistenceRule;
 
 import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -16,7 +15,7 @@ import java.sql.SQLException;
  */
 
 @DatabaseTable(tableName = "diaryentry")
-public class DiaryEntry extends SimpleEditTextPersistenceRule {
+public class DiaryEntry implements PersistableEditTextEntry {
     @DatabaseField(id = true)
     private long created;
     @DatabaseField
@@ -26,6 +25,11 @@ public class DiaryEntry extends SimpleEditTextPersistenceRule {
 
     public DiaryEntry() {
         created = System.currentTimeMillis();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 
     @Override
@@ -56,5 +60,27 @@ public class DiaryEntry extends SimpleEditTextPersistenceRule {
     @Override
     public void setEntry(String entry) {
         this.entry = entry;
+    }
+
+    @Override
+    public Dao getDao() {
+        return Globals.getDao(this.getClass());
+    }
+
+    public static DiaryEntry getLatest() {
+        try {
+            Dao<DiaryEntry, Long> diaryEntryDao = Globals.getDao(DiaryEntry.class);
+            List<DiaryEntry> entries = diaryEntryDao.query(diaryEntryDao.queryBuilder().orderBy("created", false).limit(1l).prepare());
+
+            if (entries.size() == 1) {
+                return entries.get(0);
+            } else if (entries.size() != 0) {
+                throw new RuntimeException("Expected one DiaryEntry");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not prepare query", e);
+        }
     }
 }

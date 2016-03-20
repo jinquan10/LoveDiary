@@ -5,8 +5,7 @@ import android.text.TextWatcher;
 
 import com.j256.ormlite.dao.Dao;
 
-import org.jz.lovediary.application.Globals;
-import org.jz.lovediary.storage.entity.EditTextEntry;
+import org.jz.lovediary.storage.entity.PersistableEditTextEntry;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -14,8 +13,12 @@ import java.util.Date;
 /**
  * Created by JZ on 3/8/2016.
  */
-public abstract class SimpleEditTextPersistenceRule implements TextWatcher, EditTextEntry {
-    private int currCount = 0;
+public class SimpleEditTextPersistenceRule implements TextWatcher {
+    private final PersistableEditTextEntry persistableEditTextEntry;
+
+    public SimpleEditTextPersistenceRule(PersistableEditTextEntry persistableEditTextEntry) {
+        this.persistableEditTextEntry = persistableEditTextEntry;
+    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -24,19 +27,16 @@ public abstract class SimpleEditTextPersistenceRule implements TextWatcher, Edit
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (count - currCount > 10) {
-            currCount = count;
-            setLastUpdated(new Date().getTime());
-            setEntry(s.toString());
+        persistableEditTextEntry.setLastUpdated(new Date().getTime());
+        persistableEditTextEntry.setEntry(s.toString());
 
-            try {
-                Dao.CreateOrUpdateStatus createOrUpdateStatus = Globals.getDao(this.getClass()).createOrUpdate(this);
-                if (!createOrUpdateStatus.isUpdated() && !createOrUpdateStatus.isCreated()) {
-                    throw new RuntimeException("Could not create or update");
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException("Could not create or update", e);
+        try {
+            Dao.CreateOrUpdateStatus createOrUpdateStatus = persistableEditTextEntry.getDao().createOrUpdate(persistableEditTextEntry);
+            if (!createOrUpdateStatus.isUpdated() && !createOrUpdateStatus.isCreated()) {
+                throw new RuntimeException("Could not create or update");
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not create or update", e);
         }
     }
 

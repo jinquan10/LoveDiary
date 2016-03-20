@@ -40,31 +40,16 @@ public class DiaryEntryFragment extends Fragment
         editText = (EditText) layoutContainer.findViewById(R.id.editText);
         editText.setHint(org.jz.lovediary.util.Utils.DEFAULT_DATE_FORMATTER.format(new Date()).toString());
 
-        Dao<DiaryEntry, Long> diaryEntryDao = Globals.getDao(DiaryEntry.class);
-        List<DiaryEntry> entries = diaryEntryDao.query(diaryEntryDao.queryBuilder().orderBy("created", false).limit(1l).prepare());
-        DiaryEntry entry = null;
-        if (entries.size() == 1)
+        DiaryEntry diaryEntry = DiaryEntry.getLatest();
+
+        if (diaryEntry == null) {
+            diaryEntry = new DiaryEntry();
+        } else if (Utils.isFromToday(diaryEntry.getLastUpdated()))
         {
-            entry = entries.get(0);
-            if (Utils.isFromToday(entry.getLastUpdated()))
-            {
-                editText.setText(entry.getEntry());
-            }
-            else
-            {
-                entry = new DiaryEntry();
-            }
-        }
-        else if (entries.size() == 0)
-        { // no entries yet
-            entry = new DiaryEntry();
-        }
-        else if (entries.size() != 1)
-        {
-            throw new RuntimeException("Expected one DiaryEntry");
+            editText.setText(diaryEntry.getEntry());
         }
 
-        editText.addTextChangedListener(entry);
+        editText.addTextChangedListener(new SimpleEditTextPersistenceRule(diaryEntry));
 
         return layoutContainer;
     }
