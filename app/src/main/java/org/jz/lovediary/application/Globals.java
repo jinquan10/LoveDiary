@@ -8,7 +8,6 @@ import com.j256.ormlite.dao.DaoManager;
 
 import org.jz.lovediary.factory.ApplicationInitializor;
 import org.jz.lovediary.storage.SQLStorage;
-import org.jz.lovediary.storage.entity.DiaryEntry;
 
 import java.sql.SQLException;
 

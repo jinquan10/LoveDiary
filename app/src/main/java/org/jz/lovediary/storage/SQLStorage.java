@@ -1,6 +1,7 @@
 package org.jz.lovediary.storage;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -8,7 +9,8 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-import org.jz.lovediary.storage.entity.DiaryEntry;
+import org.jz.lovediary.BuildConfig;
+import org.jz.lovediary.entity.DiaryEntry;
 import org.jz.lovediary.util.Utils;
 
 import java.sql.SQLException;
@@ -30,7 +32,7 @@ public class SQLStorage extends OrmLiteSqliteOpenHelper
 
     public SQLStorage(Context context)
     {
-        super(context, "lovediary.db", null, 4);
+        super(context, "lovediary.db", null, BuildConfig.VERSION_CODE);
     }
 
     @Override

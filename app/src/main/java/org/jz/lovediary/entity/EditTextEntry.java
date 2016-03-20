@@ -1,4 +1,4 @@
-package org.jz.lovediary.storage.entity;
+package org.jz.lovediary.entity;
 
 /**
  * Created by JZ on 3/6/2016.

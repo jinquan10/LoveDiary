@@ -9,18 +9,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.stmt.QueryBuilder;
-
 import org.jz.lovediary.R;
-import org.jz.lovediary.application.Globals;
-import org.jz.lovediary.storage.entity.DiaryEntry;
+import org.jz.lovediary.entity.DiaryEntry;
 import org.jz.lovediary.storage.rules.SimpleEditTextPersistenceRule;
 import org.jz.lovediary.util.Utils;
 
 import java.util.Date;
-import java.util.List;
 
 
 /**

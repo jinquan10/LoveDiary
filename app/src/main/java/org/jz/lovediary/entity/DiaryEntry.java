@@ -1,4 +1,4 @@
-package org.jz.lovediary.storage.entity;
+package org.jz.lovediary.entity;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
@@ -15,21 +15,35 @@ import java.util.List;
  */
 
 @DatabaseTable(tableName = "diaryentry")
-public class DiaryEntry implements PersistableEditTextEntry {
+public class DiaryEntry implements PersistableEditTextMoodEntry {
     @DatabaseField(id = true)
     private long created;
     @DatabaseField
     private long lastUpdated;
     @DatabaseField
     private String entry;
+    @DatabaseField
+    private Mood mood;
 
     public DiaryEntry() {
         created = System.currentTimeMillis();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
+    public static DiaryEntry getLatest() {
+        try {
+            Dao<DiaryEntry, Long> diaryEntryDao = Globals.getDao(DiaryEntry.class);
+            List<DiaryEntry> entries = diaryEntryDao.query(diaryEntryDao.queryBuilder().orderBy("created", false).limit(1l).prepare());
+
+            if (entries.size() == 1) {
+                return entries.get(0);
+            } else if (entries.size() != 0) {
+                throw new RuntimeException("Expected one DiaryEntry");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not prepare query", e);
+        }
     }
 
     @Override
@@ -67,20 +81,13 @@ public class DiaryEntry implements PersistableEditTextEntry {
         return Globals.getDao(this.getClass());
     }
 
-    public static DiaryEntry getLatest() {
-        try {
-            Dao<DiaryEntry, Long> diaryEntryDao = Globals.getDao(DiaryEntry.class);
-            List<DiaryEntry> entries = diaryEntryDao.query(diaryEntryDao.queryBuilder().orderBy("created", false).limit(1l).prepare());
+    @Override
+    public Mood getMood() {
+        return mood;
+    }
 
-            if (entries.size() == 1) {
-                return entries.get(0);
-            } else if (entries.size() != 0) {
-                throw new RuntimeException("Expected one DiaryEntry");
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Could not prepare query", e);
-        }
+    @Override
+    public void setMood(Mood mood) {
+        this.mood = mood;
     }
 }

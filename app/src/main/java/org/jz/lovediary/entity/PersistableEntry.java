@@ -1,4 +1,4 @@
-package org.jz.lovediary.storage.entity;
+package org.jz.lovediary.entity;
 
 import com.j256.ormlite.dao.Dao;
 
