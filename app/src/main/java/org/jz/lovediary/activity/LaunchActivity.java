@@ -20,8 +20,6 @@ public class LaunchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.container);
 
         Globals.appInitializor = new ApplicationInitializor();
@@ -45,23 +43,13 @@ public class LaunchActivity extends Activity {
                 Log.d(Utils.APP_TAG, "LaunchActivity.onCreate()ed", null);
             }
         });
-
         Globals.appInitializor.initialize();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         Globals.appInitializor.destory();
+        Log.d(Utils.APP_TAG, "LaunchActivity.onDestroy()");
     }
 }
