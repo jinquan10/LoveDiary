@@ -2,12 +2,14 @@ package org.jz.lovediary.storage;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import org.jz.lovediary.storage.entity.DiaryEntry;
+import org.jz.lovediary.util.Utils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class SQLStorage extends OrmLiteSqliteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource)
     {
+        Log.d(Utils.APP_TAG, "SQLStorage onCreate()");
+
         try
         {
             for (Class<?> clazz : tables)
@@ -56,6 +60,8 @@ public class SQLStorage extends OrmLiteSqliteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
     {
+        Log.d(Utils.APP_TAG, "SQLStorage onUpgrade()");
+
         try
         {
             for (Class<?> clazz : tables)

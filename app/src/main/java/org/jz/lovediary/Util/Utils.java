@@ -13,10 +13,6 @@ public final class Utils {
     public static final long MILLIS_PER_DAY = 86400000;
     public static final SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("MMM d, y");
 
-    public static void logD(String str) {
-        Log.d(APP_TAG, str);
-    }
-
     public static boolean isFromToday(long gmtMillis) {
         long tzOffset = TimeZone.getDefault().getOffset(gmtMillis);
 

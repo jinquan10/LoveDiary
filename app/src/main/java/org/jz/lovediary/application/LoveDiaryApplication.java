@@ -2,6 +2,9 @@ package org.jz.lovediary.application;
 
 import android.app.Application;
 import android.os.Handler;
+import android.util.Log;
+
+import org.jz.lovediary.util.Utils;
 
 
 /**
@@ -16,7 +19,13 @@ public class LoveDiaryApplication extends Application
 
         Globals.context = getApplicationContext();
         Globals.handler = new Handler(getMainLooper());
+
+        final Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+                defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
+            }
+        });
     }
-
-
 }

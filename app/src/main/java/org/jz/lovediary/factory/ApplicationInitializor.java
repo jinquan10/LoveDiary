@@ -1,9 +1,10 @@
 package org.jz.lovediary.factory;
 
+import android.util.Log;
+
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import org.jz.lovediary.application.Globals;
-import org.jz.lovediary.storage.SQLStorage;
 import org.jz.lovediary.util.Utils;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class ApplicationInitializor implements Initializor {
 
     static {
         factories = new ArrayList<>();
-        factories.add(new DAOFactory());
+        factories.add(new SQLStorageFactory());
     }
 
     @Override
@@ -57,7 +58,7 @@ public class ApplicationInitializor implements Initializor {
             initializeThread.interrupt();
             initializeThread.join();
         } catch (InterruptedException e) {
-            Utils.logD("Shutting down initialization thread...");
+            Log.d(Utils.APP_TAG, "Shutting down initialization thread...", null);
         }
     }
 
@@ -79,16 +80,16 @@ public class ApplicationInitializor implements Initializor {
         this.onFinishedRunnable.run();
     }
 
-    private static class DAOFactory implements Factory {
+    private static class SQLStorageFactory implements Factory {
         @Override
         public void create() {
-            Globals.sqlStorage = OpenHelperManager.getHelper(Globals.context, SQLStorage.class);
+            Globals.sqlStorage = OpenHelperManager.getHelper(Globals.context, org.jz.lovediary.storage.SQLStorage.class);
         }
 
         @Override
         public void destory() {
-            Globals.sqlStorage.close();
-            Utils.logD("DAOFactory destroyed");
+            OpenHelperManager.releaseHelper();
+            Log.d(Utils.APP_TAG, "SQLStorageFactory destroyed", null);
         }
     }
 }
