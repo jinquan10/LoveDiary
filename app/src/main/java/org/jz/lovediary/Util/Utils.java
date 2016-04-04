@@ -1,5 +1,7 @@
 package org.jz.lovediary.util;
 
+import org.jz.lovediary.BuildConfig;
+
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
@@ -9,6 +11,7 @@ import java.util.TimeZone;
 public final class Utils {
     public static final String APP_TAG = "jzjz";
     public static final long MILLIS_PER_DAY = 86400000;
+    public static final long MILLIS_PER_SECOND = 1000;
     public static final SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("MMM d, y");
 
     public static boolean isFromToday(long gmtMillis) {
@@ -17,8 +20,13 @@ public final class Utils {
         long inputMillis = gmtMillis + tzOffset;
         long todayMillis = System.currentTimeMillis() + tzOffset;
 
-        inputMillis -= inputMillis % MILLIS_PER_DAY;
-        todayMillis -= todayMillis % MILLIS_PER_DAY;
+        if (BuildConfig.DEBUG) {
+            inputMillis -= inputMillis % MILLIS_PER_SECOND;
+            todayMillis -= todayMillis % MILLIS_PER_SECOND;
+        } else {
+            inputMillis -= inputMillis % MILLIS_PER_DAY;
+            todayMillis -= todayMillis % MILLIS_PER_DAY;
+        }
 
         if (todayMillis == inputMillis) {
             return true;

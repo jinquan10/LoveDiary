@@ -45,4 +45,13 @@ public class PersistenceManager {
             throw new RuntimeException("Could not create or update", e);
         }
     }
+
+    public <T> List<T> getAllEntities(Class<T> clazz) {
+        try {
+            Dao<T, Long> diaryEntryDao = getDao(clazz);
+            return diaryEntryDao.queryForAll();
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not prepare query", e);
+        }
+    }
 }
