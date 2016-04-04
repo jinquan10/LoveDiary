@@ -10,6 +10,7 @@ import android.widget.ListView;
 import org.jz.lovediary.R;
 import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.entity.DiaryEntry;
+import org.jz.lovediary.util.Utils;
 
 /**
  * Created by JZ on 4/3/2016.
@@ -32,11 +33,13 @@ public class DiaryEntriesLayout extends ListView {
             }
         };
 
-        adapter.addAll(Globals.persistenceManager.getAllEntities(DiaryEntry.class));
-        setAdapter(adapter);
+        DiaryEntry diaryEntry = Globals.persistenceManager.getLatest(DiaryEntry.class);
 
-        if (adapter.isEmpty()) {
+        if (diaryEntry == null || !Utils.isFromToday(diaryEntry.getCreated())) {
             adapter.add(new DiaryEntry());
         }
+
+        adapter.addAll(Globals.persistenceManager.getAllEntities(DiaryEntry.class));
+        setAdapter(adapter);
     }
 }
