@@ -15,4 +15,6 @@ public interface EditTextEntry {
     void setEntry(String entry);
 
     public String getEntry();
+
+    public void invalidate();
 }

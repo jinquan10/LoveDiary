@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @DatabaseTable(tableName = "diaryentry")
-public class DiaryEntry implements PersistableEditTextMoodEntry {
+public class DiaryEntry extends AbsPersistableEntry implements EditTextEntry, MoodEntry {
     @DatabaseField(id = true)
     private long created;
     @DatabaseField
@@ -27,23 +27,6 @@ public class DiaryEntry implements PersistableEditTextMoodEntry {
 
     public DiaryEntry() {
         created = System.currentTimeMillis();
-    }
-
-    public static DiaryEntry getLatest() {
-        try {
-            Dao<DiaryEntry, Long> diaryEntryDao = Globals.getDao(DiaryEntry.class);
-            List<DiaryEntry> entries = diaryEntryDao.query(diaryEntryDao.queryBuilder().orderBy("created", false).limit(1l).prepare());
-
-            if (entries.size() == 1) {
-                return entries.get(0);
-            } else if (entries.size() != 0) {
-                throw new RuntimeException("Expected one DiaryEntry");
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Could not prepare query", e);
-        }
     }
 
     @Override
@@ -67,6 +50,11 @@ public class DiaryEntry implements PersistableEditTextMoodEntry {
     }
 
     @Override
+    public void invalidate() {
+        createOrUpdate();
+    }
+
+    @Override
     public void setLastUpdated(long lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
@@ -74,11 +62,6 @@ public class DiaryEntry implements PersistableEditTextMoodEntry {
     @Override
     public void setEntry(String entry) {
         this.entry = entry;
-    }
-
-    @Override
-    public Dao getDao() {
-        return Globals.getDao(this.getClass());
     }
 
     @Override

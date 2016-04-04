@@ -5,6 +5,7 @@ import android.util.Log;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import org.jz.lovediary.application.Globals;
+import org.jz.lovediary.storage.PersistenceManager;
 import org.jz.lovediary.util.Utils;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ApplicationInitializor implements Initializor {
     static {
         factories = new ArrayList<>();
         factories.add(new SQLStorageFactory());
+        factories.add(new SingletonFactory());
     }
 
     @Override
@@ -90,6 +92,19 @@ public class ApplicationInitializor implements Initializor {
         public void destory() {
             OpenHelperManager.releaseHelper();
             Log.d(Utils.APP_TAG, "SQLStorageFactory destroyed", null);
+        }
+    }
+
+    private static class SingletonFactory implements Factory {
+
+        @Override
+        public void create() {
+            Globals.persistenceManager = new PersistenceManager();
+        }
+
+        @Override
+        public void destory() {
+
         }
     }
 }
