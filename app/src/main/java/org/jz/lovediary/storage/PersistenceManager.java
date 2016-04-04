@@ -13,6 +13,14 @@ import java.util.List;
  * Created by JZ on 4/3/2016.
  */
 public class PersistenceManager {
+    private static Dao getDao(Class<?> clazz) {
+        try {
+            return DaoManager.createDao(Globals.sqlStorage.getConnectionSource(), clazz);
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not get the dao", e);
+        }
+    }
+
     public <T> T getLatest(Class<T> clazz) {
         try {
             Dao<T, Long> diaryEntryDao = getDao(clazz);
@@ -27,14 +35,6 @@ public class PersistenceManager {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Could not prepare query", e);
-        }
-    }
-
-    private static Dao getDao(Class<?> clazz) {
-        try {
-            return DaoManager.createDao(Globals.sqlStorage.getConnectionSource(), clazz);
-        } catch (SQLException e) {
-            throw new RuntimeException("Could not get the dao", e);
         }
     }
 

@@ -2,19 +2,14 @@ package org.jz.lovediary.application;
 
 import android.app.Application;
 import android.os.Handler;
-import android.util.Log;
-
-import org.jz.lovediary.util.Utils;
 
 
 /**
  * Created by JZ on 3/6/2016.
  */
-public class LoveDiaryApplication extends Application
-{
+public class LoveDiaryApplication extends Application {
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
         Globals.context = getApplicationContext();

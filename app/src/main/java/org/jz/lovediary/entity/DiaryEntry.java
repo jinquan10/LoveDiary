@@ -1,13 +1,7 @@
 package org.jz.lovediary.entity;
 
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import org.jz.lovediary.application.Globals;
-
-import java.sql.SQLException;
-import java.util.List;
 
 
 /**
@@ -45,23 +39,23 @@ public class DiaryEntry extends AbsPersistableEntry implements EditTextEntry, Mo
     }
 
     @Override
-    public String getEntry() {
-        return entry;
-    }
-
-    @Override
-    public void invalidate() {
-        createOrUpdate();
-    }
-
-    @Override
     public void setLastUpdated(long lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
     @Override
+    public String getEntry() {
+        return entry;
+    }
+
+    @Override
     public void setEntry(String entry) {
         this.entry = entry;
+    }
+
+    @Override
+    public void invalidate() {
+        createOrUpdate();
     }
 
     @Override

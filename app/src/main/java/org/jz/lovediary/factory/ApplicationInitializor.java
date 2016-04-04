@@ -16,16 +16,17 @@ import java.util.List;
  * Created by john.zhuang on 3/18/16.
  */
 public class ApplicationInitializor implements Initializor {
-    private Runnable onBeforeRunnable;
-    private Runnable onFinishedRunnable;
     private static List<Factory> factories;
-    private Thread initializeThread;
 
     static {
         factories = new ArrayList<>();
         factories.add(new SQLStorageFactory());
         factories.add(new SingletonFactory());
     }
+
+    private Runnable onBeforeRunnable;
+    private Runnable onFinishedRunnable;
+    private Thread initializeThread;
 
     @Override
     public void initialize() {

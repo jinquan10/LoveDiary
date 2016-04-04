@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-import com.j256.ormlite.dao.Dao;
-
 import org.jz.lovediary.R;
 import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.entity.DiaryEntry;

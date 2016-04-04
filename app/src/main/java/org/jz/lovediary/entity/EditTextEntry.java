@@ -12,9 +12,9 @@ public interface EditTextEntry {
 
     public void setCreated(long created);
 
-    void setEntry(String entry);
-
     public String getEntry();
+
+    void setEntry(String entry);
 
     public void invalidate();
 }

@@ -3,15 +3,9 @@ package org.jz.lovediary.application;
 import android.content.Context;
 import android.os.Handler;
 
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-
 import org.jz.lovediary.factory.ApplicationInitializor;
 import org.jz.lovediary.storage.PersistenceManager;
-import org.jz.lovediary.storage.PersistenceManager;
 import org.jz.lovediary.storage.SQLStorage;
-
-import java.sql.SQLException;
 
 
 /**

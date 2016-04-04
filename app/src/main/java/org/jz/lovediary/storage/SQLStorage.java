@@ -1,7 +1,6 @@
 package org.jz.lovediary.storage;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -21,60 +20,46 @@ import java.util.List;
 /**
  * Created by john.zhuang on 3/18/16.
  */
-public class SQLStorage extends OrmLiteSqliteOpenHelper
-{
+public class SQLStorage extends OrmLiteSqliteOpenHelper {
     private static List<Class<?>> tables = new ArrayList<>();
 
-    static
-    {
+    static {
         tables.add(DiaryEntry.class);
     }
 
-    public SQLStorage(Context context)
-    {
+    public SQLStorage(Context context) {
         super(context, "lovediary.db", null, BuildConfig.VERSION_CODE);
     }
 
     @Override
-    public void close()
-    {
+    public void close() {
         super.close();
     }
 
     @Override
-    public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource)
-    {
+    public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         Log.d(Utils.APP_TAG, "SQLStorage onCreate()");
 
-        try
-        {
-            for (Class<?> clazz : tables)
-            {
+        try {
+            for (Class<?> clazz : tables) {
                 TableUtils.createTableIfNotExists(connectionSource, clazz);
             }
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new RuntimeException("Trouble creating tables", e);
         }
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
-    {
+    public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         Log.d(Utils.APP_TAG, "SQLStorage onUpgrade()");
 
-        try
-        {
-            for (Class<?> clazz : tables)
-            {
+        try {
+            for (Class<?> clazz : tables) {
                 TableUtils.dropTable(connectionSource, clazz, true);
             }
 
             onCreate(database, connectionSource);
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             throw new RuntimeException("Trouble upgrading tables", e);
         }
     }

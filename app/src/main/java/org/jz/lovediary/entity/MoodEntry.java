@@ -5,6 +5,8 @@ package org.jz.lovediary.entity;
  */
 public interface MoodEntry {
     Mood getMood();
+
     void setMood(Mood mood);
+
     void invalidate();
 }

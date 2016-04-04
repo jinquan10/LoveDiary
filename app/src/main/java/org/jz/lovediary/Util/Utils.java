@@ -1,7 +1,5 @@
 package org.jz.lovediary.util;
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
