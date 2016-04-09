@@ -49,7 +49,7 @@ public class PersistenceManager {
     public <T> List<T> getAllEntities(Class<T> clazz) {
         try {
             Dao<T, Long> diaryEntryDao = getDao(clazz);
-            return diaryEntryDao.queryForAll();
+            return diaryEntryDao.query(diaryEntryDao.queryBuilder().orderBy("created", false).prepare());
         } catch (SQLException e) {
             throw new RuntimeException("Could not prepare query", e);
         }

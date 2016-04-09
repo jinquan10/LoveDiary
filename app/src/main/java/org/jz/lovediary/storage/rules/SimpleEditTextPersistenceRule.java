@@ -11,9 +11,13 @@ import java.util.Date;
  * Created by JZ on 3/8/2016.
  */
 public class SimpleEditTextPersistenceRule implements TextWatcher {
-    private final EditTextEntry entry;
+    private EditTextEntry entry;
 
     public SimpleEditTextPersistenceRule(EditTextEntry entry) {
+        this.entry = entry;
+    }
+
+    public void setEditTextEntry(EditTextEntry entry) {
         this.entry = entry;
     }
 

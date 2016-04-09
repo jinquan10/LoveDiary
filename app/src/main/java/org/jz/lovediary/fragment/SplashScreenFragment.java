@@ -21,18 +21,7 @@ public class SplashScreenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layoutContainer = (RelativeLayout) inflater.inflate(R.layout.splash_screen, container, false);
-        layoutContainer.setAlpha(0f);
 
         return layoutContainer;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        layoutContainer.animate()
-                .alpha(1f)
-                .setDuration(2000l)
-                .start();
     }
 }

@@ -1,6 +1,7 @@
 package org.jz.lovediary.activity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,6 @@ import android.util.Log;
 import org.jz.lovediary.R;
 import org.jz.lovediary.application.Globals;
 import org.jz.lovediary.factory.ApplicationInitializor;
-import org.jz.lovediary.fragment.DiaryEntryFragment;
 import org.jz.lovediary.fragment.SplashScreenFragment;
 import org.jz.lovediary.util.Utils;
 
@@ -17,6 +17,8 @@ import org.jz.lovediary.util.Utils;
  * Created by JZ on 3/4/2016.
  */
 public class LaunchActivity extends Activity {
+    private Fragment currFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +29,9 @@ public class LaunchActivity extends Activity {
             @Override
             public void run() {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.container, new SplashScreenFragment(), "splashScreen");
+                currFragment = new SplashScreenFragment();
+                fragmentTransaction.add(R.id.container, currFragment);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 fragmentTransaction.commit();
             }
         });
@@ -37,10 +41,12 @@ public class LaunchActivity extends Activity {
             public void run() {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-                fragmentTransaction.replace(getFragmentManager().findFragmentByTag("splashScreen").getId(), new DiaryEntryFragment());
+                fragmentTransaction.remove(currFragment);
+                currFragment = new org.jz.lovediary.fragment.CalendarFragment();
+                fragmentTransaction.add(R.id.container, currFragment);
                 fragmentTransaction.commit();
 
-                Log.d(Utils.APP_TAG, "LaunchActivity.onCreate()ed", null);
+                Log.d(Utils.APP_TAG, "LaunchActivity.onCrea te()ed", null);
             }
         });
         Globals.appInitializor.initialize();
@@ -49,6 +55,10 @@ public class LaunchActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.remove(currFragment);
+
         Globals.appInitializor.destory();
         Log.d(Utils.APP_TAG, "LaunchActivity.onDestroy()");
     }

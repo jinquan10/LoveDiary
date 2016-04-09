@@ -67,4 +67,9 @@ public class DiaryEntry extends AbsPersistableEntry implements EditTextEntry, Mo
     public void setMood(Mood mood) {
         this.mood = mood;
     }
+
+    @Override
+    public String toString() {
+        return entry;
+    }
 }

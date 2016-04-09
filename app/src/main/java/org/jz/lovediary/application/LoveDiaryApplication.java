@@ -23,4 +23,6 @@ public class LoveDiaryApplication extends Application {
             }
         });
     }
+
+
 }
