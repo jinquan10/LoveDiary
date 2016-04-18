@@ -55,7 +55,7 @@ public class DiaryEntry extends AbsPersistableEntry implements EditTextEntry, Mo
 
     @Override
     public void invalidate() {
-        createOrUpdate();
+//        createOrUpdate();
     }
 
     @Override
