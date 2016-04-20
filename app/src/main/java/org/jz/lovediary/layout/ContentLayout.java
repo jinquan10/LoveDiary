@@ -4,18 +4,25 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.ViewStub;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import org.jz.lovediary.R;
 import org.jz.lovediary.presenter.ContentPresenter;
-import org.jz.lovediary.presenter.MenuPresenter;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * Created by JZ on 4/17/2016.
  */
-public class ContentLayout extends RelativeLayout implements ContentPresenter.View{
+public class ContentLayout extends RelativeLayout implements ContentPresenter.Layout {
     private ContentPresenter presenter;
+
+    @Bind(R.id.diaryEntryStub)
+    ViewStub diaryEntryStub;
+    DiaryEntryLayout diaryEntryLayout;
 
     public ContentLayout(Context context) {
         super(context);
@@ -44,6 +51,6 @@ public class ContentLayout extends RelativeLayout implements ContentPresenter.Vi
 
     @Override
     public void setDiaryEntryView() {
-
+        diaryEntryLayout = (DiaryEntryLayout) diaryEntryStub.inflate();
     }
 }

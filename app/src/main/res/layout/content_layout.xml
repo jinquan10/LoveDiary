@@ -2,8 +2,10 @@
 <org.jz.lovediary.layout.ContentLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                        android:layout_width="match_parent"
                                        android:layout_height="match_parent">
-    <org.jz.lovediary.widget.DiaryEntryView
-        android:id="@+id/diaryEntry"
+
+    <ViewStub
+        android:id="@+id/diaryEntryStub"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout="@layout/diary_entry_layout"/>
 </org.jz.lovediary.layout.ContentLayout>

@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 /**
  * Created by JZ on 4/17/2016.
  */
-public class MenuLayout extends LinearLayout implements MenuPresenter.View {
+public class MenuLayout extends LinearLayout implements MenuPresenter.Layout {
     public enum MenuItem {
         SHARE, STATS, TAG, WRITE
     }
@@ -24,16 +24,16 @@ public class MenuLayout extends LinearLayout implements MenuPresenter.View {
     private MenuPresenter presenter;
 
     @Bind(R.id.share)
-    private TextView shareTextView;
+    TextView shareTextView;
 
     @Bind(R.id.stats)
-    private TextView statsTextView;
+    TextView statsTextView;
 
     @Bind(R.id.tag)
-    private TextView tagTextView;
+    TextView tagTextView;
 
     @Bind(R.id.write)
-    private TextView writeTextView;
+    TextView writeTextView;
 
     public MenuLayout(Context context) {
         super(context);

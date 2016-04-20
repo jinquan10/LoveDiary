@@ -1,18 +1,17 @@
 package org.jz.lovediary.presenter;
 
 import org.jz.lovediary.application.LoveDiaryApplication;
+import org.jz.lovediary.layout.LDLayout;
 
 /**
  * Created by JZ on 4/17/2016.
  */
-public abstract class AbsPresenter<P extends Presenter, L> implements Presenter {
+public abstract class AbsPresenter<L extends LDLayout> implements Presenter {
     private final L layout;
 
     public AbsPresenter(L layout) {
         this.layout = layout;
     }
-
-    protected abstract P getPresenter();
 
     protected L getLayout() {
         return layout;
@@ -20,11 +19,11 @@ public abstract class AbsPresenter<P extends Presenter, L> implements Presenter 
 
     @Override
     public void onCreate() {
-        LoveDiaryApplication.instance().applicationBus.register(getPresenter());
+        LoveDiaryApplication.instance().applicationBus.register(this);
     }
 
     @Override
     public void onDestroy() {
-        LoveDiaryApplication.instance().applicationBus.unregister(getPresenter());
+        LoveDiaryApplication.instance().applicationBus.unregister(this);
     }
 }
