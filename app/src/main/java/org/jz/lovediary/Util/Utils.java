@@ -3,6 +3,7 @@ package org.jz.lovediary.util;
 import org.jz.lovediary.BuildConfig;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -12,7 +13,11 @@ public final class Utils {
     public static final String APP_TAG = "jzjz";
     public static final long MILLIS_PER_DAY = 86400000;
     public static final long MILLIS_PER_SECOND = 1000;
-    public static final SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("MMM d, y");
+    private static final SimpleDateFormat DEFAULT_DATE_FORMATTER = new SimpleDateFormat("MMM d, y");
+
+    public static String getFormattedDate(long millis) {
+        return DEFAULT_DATE_FORMATTER.format(new Date(millis));
+    }
 
     public static boolean isFromToday(long gmtMillis) {
         long tzOffset = TimeZone.getDefault().getOffset(gmtMillis);
