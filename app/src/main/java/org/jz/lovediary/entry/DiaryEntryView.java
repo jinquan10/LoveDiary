@@ -48,6 +48,11 @@ public class DiaryEntryView extends RelativeLayout implements DiaryEntryApi.View
     }
 
     @Override
+    public void displayMoodSelection(Mood[] moods) {
+
+    }
+
+    @Override
     public void displayText(String entry) {
 
     }

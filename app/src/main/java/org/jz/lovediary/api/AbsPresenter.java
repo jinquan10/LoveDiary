@@ -17,9 +17,5 @@ public abstract class AbsPresenter<TView extends AndroidMVPApi.View, TProvider e
     protected boolean isViewAttached() {
         return view.get() != null;
     }
-
-    protected TView getView() {
-        return this.view.get();
-    }
 }
 

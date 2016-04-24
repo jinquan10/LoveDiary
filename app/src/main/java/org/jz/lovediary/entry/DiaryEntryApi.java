@@ -9,13 +9,17 @@ public final class DiaryEntryApi {
 
         void displayMood(Mood mood);
 
+        void displayMoodSelection(Mood[] moods);
+
         void displayText(String entry);
     }
 
     public interface Presenter<TView extends AndroidMVPApi.View> extends AndroidMVPApi.Presenter<TView> {
-        void diaryTextUpdated(String text);
+        void requestTextUpdate(String text);
 
-        void moodUpdated(Mood mood);
+        void requestMoodUpdate(Mood mood);
+
+        void requestMoodSelection();
 
         void searchDiaryEntry();
     }

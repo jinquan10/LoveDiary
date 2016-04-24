@@ -18,26 +18,43 @@ public class DiaryEntryPresenter extends AbsPresenter<DiaryEntryView, DiaryEntry
         super.onViewReady(view);
 
         if (isViewAttached()) {
-            getView().displayText(this.provider.getText());
-            getView().displayMood(this.provider.getMood());
-            getView().displayDate(Utils.getFormattedDate(this.provider.getTime()));
+            this.view.get().displayText(this.provider.getText());
+            this.view.get().displayMood(this.provider.getMood());
+            this.view.get().displayDate(Utils.getFormattedDate(this.provider.getTime()));
         }
     }
 
     @Override
-    public void diaryTextUpdated(String text) {
+    public void requestTextUpdate(String text) {
         if (perWordRule.canBePersisted(text)) {
             provider.saveText(text);
         }
     }
 
     @Override
-    public void moodUpdated(Mood mood) {
+    public void requestMoodUpdate(Mood mood) {
+        if (sameStateRule.canBePersisted(mood)) {
+            provider.saveMood(mood);
 
+            updateMood(mood);
+        }
+    }
+
+    @Override
+    public void requestMoodSelection() {
+        if (isViewAttached()) {
+            this.view.get().displayMoodSelection(Mood.values());
+        }
     }
 
     @Override
     public void searchDiaryEntry() {
 
+    }
+
+    void updateMood(Mood mood) {
+        if (isViewAttached()) {
+            this.view.get().displayMood(mood);
+        }
     }
 }
