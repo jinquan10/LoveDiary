@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.jz.lovediary.layout.DiaryEntryLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<org.jz.lovediary.entry.DiaryEntryView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:lines="2"
+        android:text="May 3, 2016"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/magnifying_glass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/dateText"
+        android:layout_toLeftOf="@id/dateText"
+        android:adjustViewBounds="true"
+        android:padding="10dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/magnifying_glass"/>
 
     <EditText
         android:id="@+id/entry"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</org.jz.lovediary.layout.DiaryEntryLayout>
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/dateText"
+        android:gravity="top"/>
+</org.jz.lovediary.entry.DiaryEntryView>

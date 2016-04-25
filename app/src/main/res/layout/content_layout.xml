@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.jz.lovediary.layout.ContentLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                        android:layout_width="match_parent"
                                        android:layout_height="match_parent">
-
-    <ViewStub
-        android:id="@+id/diaryEntryStub"
+    <org.jz.lovediary.entry.DiaryEntryView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout="@layout/diary_entry_layout"/>
-</org.jz.lovediary.layout.ContentLayout>
+        android:layout_height="match_parent"></org.jz.lovediary.entry.DiaryEntryView>
+</RelativeLayout>

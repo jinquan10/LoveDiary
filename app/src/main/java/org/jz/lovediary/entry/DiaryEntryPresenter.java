@@ -41,13 +41,6 @@ public class DiaryEntryPresenter extends AbsPresenter<DiaryEntryView, DiaryEntry
     }
 
     @Override
-    public void requestMoodSelection() {
-        if (isViewAttached()) {
-            this.view.get().displayMoodSelection(Mood.values());
-        }
-    }
-
-    @Override
     public void searchDiaryEntry() {
 
     }

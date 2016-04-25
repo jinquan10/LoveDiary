@@ -8,6 +8,8 @@ import android.widget.RelativeLayout;
 
 import org.jz.lovediary.Mood;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by JZ on 4/23/2016.
  */
@@ -34,7 +36,16 @@ public class DiaryEntryView extends RelativeLayout implements DiaryEntryApi.View
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        ButterKnife.bind(this);
+
+        // TODO this doesn't belong here
         this.presenter = new DiaryEntryPresenter();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        ButterKnife.unbind(this);
     }
 
     @Override
@@ -44,11 +55,6 @@ public class DiaryEntryView extends RelativeLayout implements DiaryEntryApi.View
 
     @Override
     public void displayMood(Mood mood) {
-
-    }
-
-    @Override
-    public void displayMoodSelection(Mood[] moods) {
 
     }
 

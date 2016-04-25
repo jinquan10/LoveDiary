@@ -4,12 +4,10 @@ import org.jz.lovediary.Mood;
 import org.jz.lovediary.api.AndroidMVPApi;
 
 public final class DiaryEntryApi {
-    public interface View extends AndroidMVPApi.View {
+    public interface View<TPresenter extends Presenter> extends AndroidMVPApi.View<TPresenter> {
         void displayDate(String dateString);
 
         void displayMood(Mood mood);
-
-        void displayMoodSelection(Mood[] moods);
 
         void displayText(String entry);
     }
@@ -18,8 +16,6 @@ public final class DiaryEntryApi {
         void requestTextUpdate(String text);
 
         void requestMoodUpdate(Mood mood);
-
-        void requestMoodSelection();
 
         void searchDiaryEntry();
     }
