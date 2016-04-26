@@ -14,8 +14,8 @@ public class DiaryEntryPresenter extends AbsPresenter<DiaryEntryView, DiaryEntry
     private PersistenceRule.Api<Long> timeRule;
 
     @Override
-    public void onViewReady(DiaryEntryView view) {
-        super.onViewReady(view);
+    public void onAttachView(DiaryEntryView view) {
+        super.onAttachView(view);
 
         if (isViewAttached()) {
             this.view.get().displayText(this.provider.getText());
@@ -35,7 +35,6 @@ public class DiaryEntryPresenter extends AbsPresenter<DiaryEntryView, DiaryEntry
     public void requestMoodUpdate(Mood mood) {
         if (sameStateRule.canBePersisted(mood)) {
             provider.saveMood(mood);
-
             updateMood(mood);
         }
     }

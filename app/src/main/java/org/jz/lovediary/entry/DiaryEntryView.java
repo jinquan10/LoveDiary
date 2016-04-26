@@ -4,10 +4,15 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import org.jz.lovediary.Mood;
+import org.jz.lovediary.R;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -40,6 +45,7 @@ public class DiaryEntryView extends RelativeLayout implements DiaryEntryApi.View
 
         // TODO this doesn't belong here
         this.presenter = new DiaryEntryPresenter();
+
     }
 
     @Override

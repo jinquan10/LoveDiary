@@ -9,7 +9,8 @@ public final class AndroidMVPApi {
     }
 
     public interface Presenter<T extends AndroidMVPApi.View> {
-        void onViewReady(T view);
+        void onAttachView(T view);
+        void onDetachView();
     }
 
     public interface Provider {

@@ -2,13 +2,14 @@
 <org.jz.lovediary.entry.DiaryEntryView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/arrow_right"
         android:gravity="center"
         android:lines="2"
         android:text="May 3, 2016"
@@ -16,21 +17,23 @@
         android:textSize="20sp"/>
 
     <ImageView
-        android:id="@+id/magnifying_glass"
+        android:id="@id/arrow_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/dateText"
-        android:layout_toLeftOf="@id/dateText"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/dateText"
         android:adjustViewBounds="true"
-        android:padding="10dp"
-        android:scaleType="fitEnd"
-        android:src="@drawable/magnifying_glass"/>
+        android:src="@drawable/arrow_right"/>
 
     <EditText
         android:id="@+id/entry"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/dateText"
-        android:gravity="top"/>
+        android:background="@null"
+        android:gravity="top"
+        android:hint="Enter your diary entry here"/>
 </org.jz.lovediary.entry.DiaryEntryView>
