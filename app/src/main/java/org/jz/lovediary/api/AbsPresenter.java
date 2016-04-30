@@ -2,7 +2,7 @@ package org.jz.lovediary.api;
 
 import java.lang.ref.WeakReference;
 
-public abstract class AbsPresenter<TView extends AndroidMVPApi.View, TProvider extends AndroidMVPApi.Provider> implements AndroidMVPApi.Presenter<TView> {
+public abstract class AbsPresenter<TView extends PresenterApi.View, TProvider extends PresenterApi.Provider> implements ViewApi.Presenter<TView> {
     protected WeakReference<TView> view;
     protected TProvider provider;
 

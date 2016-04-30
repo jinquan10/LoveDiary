@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                      android:layout_width="match_parent"
-                                      android:layout_height="match_parent">
+<org.jz.lovediary.screen.ScreenView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/diary_entry_layout"/>
-</RelativeLayout>
+    <include
+        layout="@layout/diary_entry_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <include
+        layout="@layout/menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"/>
+</org.jz.lovediary.screen.ScreenView>

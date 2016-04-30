@@ -3,18 +3,20 @@ package org.jz.lovediary.entry;
 import org.jz.lovediary.Mood;
 import org.jz.lovediary.PersistenceRule;
 import org.jz.lovediary.api.AbsPresenter;
+import org.jz.lovediary.api.PresenterApi;
+import org.jz.lovediary.api.ViewApi;
 import org.jz.lovediary.util.Utils;
 
 /**
  * Created by JZ on 4/23/2016.
  */
-public class DiaryEntryPresenter extends AbsPresenter<DiaryEntryView, DiaryEntryProvider> implements DiaryEntryApi.Presenter<DiaryEntryView> {
+public class DiaryEntryPresenter extends AbsPresenter<PresenterApi.DiaryEntryView, PresenterApi.DiaryEntryProvider> implements ViewApi.DiaryEntryPresenter {
     private PersistenceRule.Api<String> perWordRule;
     private PersistenceRule.Api<Object> sameStateRule;
     private PersistenceRule.Api<Long> timeRule;
 
     @Override
-    public void onAttachView(DiaryEntryView view) {
+    public void onAttachView(PresenterApi.DiaryEntryView view) {
         super.onAttachView(view);
 
         if (isViewAttached()) {

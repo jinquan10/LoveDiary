@@ -2,11 +2,12 @@ package org.jz.lovediary.entry;
 
 
 import org.jz.lovediary.Mood;
+import org.jz.lovediary.api.PresenterApi;
 
 /**
  * Created by JZ on 4/23/2016.
  */
-public class DiaryEntryProvider implements DiaryEntryApi.Provider {
+public class DiaryEntryProvider implements PresenterApi.DiaryEntryProvider {
     @Override
     public void saveText(String text) {
 
